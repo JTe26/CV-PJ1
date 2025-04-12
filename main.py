@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 
 
 # 读取数据与数据预处理
-def load_cifar10(data_dir='D:/cifar-10-python/cifar-10-batches-py'):
+def load_cifar10(data_dir='.../cifar-10-batches-py'): # 在此处输入CIFAR-10数据集的下载地址
     #获取数据
     X_train = []
     y_train = []
@@ -231,7 +231,7 @@ def hyperparameter_search(X_train, X_val, y_train, y_val, activate = 'relu'):
                 print(f"\nTraining with hidden_size={hidden_size}, lr={lr}, reg={reg_lambda}")
                 model = NeuralNetwork(3072, hidden_size, activate, reg_lambda)
                 trainer = Trainer(model, X_train, y_train, X_val, y_val,
-                                 learning_rate=lr, lr_decay=0.95, decay_interval=10) # 在此处调节学习率衰减参数与其周期！
+                                 learning_rate=lr, lr_decay=0.95, decay_interval=10) # 在此处调节学习率衰减参数与其周期
                 trainer.train(num_epochs=100, batch_size=64)
                 
                 if trainer.best_val_acc > best_acc:
@@ -257,7 +257,7 @@ if __name__ == "__main__":
     print(f"Regularization: {best['reg_lambda']}")
     print(f"Validation Accuracy: {best['model'].evaluate(X_val, y_val):.4f}")
 
-    save_weights_to_txt(best['model'], r'D:\CV\ReLU_weights.txt')
+    save_weights_to_txt(best['model'], r'weights.txt') # 在此处更改模型权重保存地址
     print("模型权重已保存")
 
     probs = best['model'].forward(X_test)
